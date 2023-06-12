@@ -19,11 +19,13 @@ game_map = [["X", " ", " ", " ", " "],
             [" ", " ", " ", " ", " "]]
 
 
-def clear_terminal():
+def clear_terminal() -> None:
+    """Clear the terminal."""
     os.system('cls')
 
 
 def draw_map() -> None:
+    """Draw the map inside a box."""
     print(".-----.")
     for line in game_map:
         print("|", end="")
@@ -34,6 +36,7 @@ def draw_map() -> None:
 
 
 def move_player(move_input: str, x: int, y: int) -> tuple[int, int]:
+    """Move the player if the inputs and conditions are valid."""
     if move_input == "w" and y > 0:
         y -= 1
     elif move_input == "s" and y < height - 1:
@@ -51,8 +54,11 @@ while True:
 
     choice = input("")
 
+    # switch the tile on your position to the one on the revealed map
     game_map[y_pos][x_pos] = game_map_revealed[y_pos][x_pos]
 
+    # move your player
     x_pos, y_pos = move_player(move_input=choice, x=x_pos, y=y_pos)
 
+    # draw an X to your current position
     game_map[y_pos][x_pos] = "X"
